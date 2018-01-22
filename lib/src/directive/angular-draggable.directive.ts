@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer, Input, Output, OnInit, HostListener, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, Renderer, Input, Output, OnInit, OnDestroy, HostListener, EventEmitter } from '@angular/core';
 
 class Position {
   constructor(public x: number, public y: number) { }
@@ -7,7 +7,7 @@ class Position {
 @Directive({
   selector: '[ngDraggable]'
 })
-export class AngularDraggableDirective implements OnInit {
+export class AngularDraggableDirective implements OnInit, OnDestroy {
   private allowDrag = true;
   private moving = false;
   private orignal: Position = null;
@@ -16,6 +16,7 @@ export class AngularDraggableDirective implements OnInit {
   private oldZIndex = '';
   private oldPosition = '';
   private _zIndex = '';
+  private _resetSub;
 
   @Output() started = new EventEmitter<any>();
   @Output() stopped = new EventEmitter<any>();
@@ -41,6 +42,8 @@ export class AngularDraggableDirective implements OnInit {
   /** Whether the element should use it's previous drag position on a new drag event. */
   @Input() trackPosition = true;
 
+  @Input() reset: EventEmitter<any>;
+
   @Input()
   set ngDraggable(setting: any) {
     if (setting !== undefined && setting !== null && setting !== '') {
@@ -63,6 +66,16 @@ export class AngularDraggableDirective implements OnInit {
       let element = this.handle ? this.handle : this.el.nativeElement;
       this.renderer.setElementClass(element, 'ng-draggable', true);
     }
+    if(this.reset) {
+        this._resetSub = this.reset.subscribe(() => {
+          this.tempTrans.x = 0;
+          this.tempTrans.y = 0;
+        });
+    }
+  }
+
+  ngOnDestroy () {
+    [this._resetSub].filter(x => !!x).forEach(x => x.unsubscribe());
   }
 
   private getPosition(x: number, y: number) {
