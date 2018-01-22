@@ -7,7 +7,7 @@ class Position {
 @Directive({
   selector: '[ngDraggable]'
 })
-export class AngularDraggableDirective implements OnInit {
+export class AngularDraggableDirective implements OnInit, OnDestroy {
   private allowDrag: boolean = true;
   private moving: boolean = false;
   private orignal: Position = null;
@@ -15,11 +15,13 @@ export class AngularDraggableDirective implements OnInit {
   private tempTrans: Position = new Position(0, 0);
   private oldZIndex: string = '';
   private oldPosition: string = '';
+  private _resetSub: any;
 
   @Output() started = new EventEmitter<any>();
   @Output() stopped = new EventEmitter<any>();
 
   @Input() handle: HTMLElement;
+  @Input() reset: EventEmitter;
 
   @Input()
   set ngDraggable(setting: any) {
@@ -44,9 +46,18 @@ export class AngularDraggableDirective implements OnInit {
       let element = this.handle ? this.handle : this.el.nativeElement;
       this.renderer.setElementClass(element, 'ng-draggable', true);
     }
+    if (this.reset) {
+      this._resetSub = this.reset.subscribe(() => {
+        this.tempTrans.x = this.tempTrans.y = 0;
+      });
+    }
   }
 
-  private getPosition(x: number, y: number) {   
+  ngOnDestroy() {
+    [this._resetSub].filter(x => !!x).forEach(x => x.unsubscribe());
+  }
+
+  private getPosition(x: number, y: number) {
     return new Position(x, y);
   }
 
@@ -149,7 +160,7 @@ export class AngularDraggableDirective implements OnInit {
   onTouchStart(event: any) {
     event.stopPropagation();
     event.preventDefault();
-    
+
     if (this.handle !== undefined && event.target !== this.handle) {
       return;
     }
