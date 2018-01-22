@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer, Input, Output, OnInit, HostListener, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, Renderer, Input, Output, OnInit, HostListener, EventEmitter, OnDestroy } from '@angular/core';
 
 class Position {
   constructor(public x: number, public y: number) { }
@@ -21,7 +21,7 @@ export class AngularDraggableDirective implements OnInit, OnDestroy {
   @Output() stopped = new EventEmitter<any>();
 
   @Input() handle: HTMLElement;
-  @Input() reset: EventEmitter;
+  @Input() reset: EventEmitter<any>;
 
   @Input()
   set ngDraggable(setting: any) {
