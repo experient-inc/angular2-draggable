@@ -7,7 +7,13 @@
   },
   "private": true,
   "author": "Xie Ziyu <xieziyu@foxmail.com> (https://xieziyu.github.io/)",
-  "keywords": [ "angular", "2", "4", "draggable", "ng" ],
+  "keywords": [
+    "angular",
+    "2",
+    "4",
+    "draggable",
+    "ng"
+  ],
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/xieziyu/angular2-draggable.git"
@@ -23,7 +29,7 @@
     "@angular/compiler": "^2.3.1 || >=4.0.0",
     "@angular/core": "^2.3.1 || >=4.0.0"
   },
-  "dependencies": { },
+  "dependencies": {},
   "devDependencies": {
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
