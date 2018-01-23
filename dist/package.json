@@ -1,0 +1,30 @@
+{
+  "main": "bundles/angular-draggable.umd.js",
+  "version": "1.0.7",
+  "keywords": [
+    "angular",
+    "2",
+    "4",
+    "draggable",
+    "ng"
+  ],
+  "author": {
+    "name": "Xie Ziyu",
+    "email": "xieziyu@foxmail.com",
+    "url": "https://xieziyu.github.io/"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/experient-inc/angular2-draggable.git"
+  },
+  "name": "angular2-draggable",
+  "peerDependencies": {
+    "@angular/common": "^2.3.1 || >=4.0.0",
+    "@angular/compiler": "^2.3.1 || >=4.0.0",
+    "@angular/core": "^2.3.1 || >=4.0.0"
+  },
+  "_id": "angular2-draggable@1.0.7",
+  "devDependencies": {},
+  "dependencies": {}
+}

@@ -16,7 +16,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/xieziyu/angular2-draggable.git"
+    "url": "git+https://github.com/experient-inc/angular2-draggable.git"
   },
   "bugs": {
     "url": "https://github.com/xieziyu/angular2-draggable/issues",
