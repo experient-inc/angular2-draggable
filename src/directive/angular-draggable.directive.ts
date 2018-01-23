@@ -47,12 +47,15 @@ export class AngularDraggableDirective implements OnInit, OnDestroy {
       this.renderer.setElementClass(element, 'ng-draggable', true);
     }
     if (this.reset) {
-      this._resetSub = this.reset.subscribe(() => this.moveTo(0,0));
+      this._resetSub = this.reset.subscribe(() => {
+        this.oldTrans.x = this.oldTrans.y = 0;
+        this.moveTo(this.orignal.x, this.orignal.y);
+      });
     }
   }
 
   ngOnDestroy() {
-    [this._resetSub].filter(x => !!x).forEach(x => x.unsubscribe());
+    this._resetSub && this._resetSub.unsubscribe();
   }
 
   private getPosition(x: number, y: number) {
