@@ -44,16 +44,12 @@ var AngularDraggableDirective = (function () {
         }
         if (this.reset) {
             this._resetSub = this.reset.subscribe(function () {
-                _this.oldTrans.x = _this.oldTrans.y = 0;
-                if (_this.origin) {
-                    _this.moveTo(_this.original.x + _this.origin.x, _this.original.y + _this.origin.y);
-                }
-                else {
-                    _this.moveTo(_this.original.x, _this.original.y);
-                }
+                _this.oldTrans = _this.origin ? Object.assign({}, _this.origin) : { x: 0, y: 0 };
+                _this.moveTo(_this.original.x, _this.original.y);
             });
         }
         if (this.origin) {
+            this.oldTrans = Object.assign({}, this.origin);
             this.original = Object.assign({}, this.origin);
             this.moveTo(2 * this.origin.x, 2 * this.origin.y);
         }

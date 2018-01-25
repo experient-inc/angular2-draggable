@@ -49,16 +49,13 @@ export class AngularDraggableDirective implements OnInit, OnDestroy {
     }
     if (this.reset) {
       this._resetSub = this.reset.subscribe(() => {
-        this.oldTrans.x = this.oldTrans.y = 0;
-        if(this.origin) {
-          this.moveTo(this.original.x + this.origin.x, this.original.y + this.origin.y);
-        } else {
-          this.moveTo(this.original.x, this.original.y);
-        }
+        this.oldTrans = this.origin ? Object.assign({}, this.origin) : { x: 0, y: 0 };
+        this.moveTo(this.original.x, this.original.y);
       });
     }
     if (this.origin) {
-       this.original = Object.assign({}, this.origin);
+      this.oldTrans = Object.assign({}, this.origin);
+      this.original = Object.assign({}, this.origin);
       this.moveTo(2 * this.origin.x, 2 * this.origin.y);
     }
   }
