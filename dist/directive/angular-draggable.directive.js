@@ -54,7 +54,7 @@ var AngularDraggableDirective = (function () {
             });
         }
         if (this.origin) {
-            Object.assign(this.original, this.origin);
+            this.original = Object.assign({}, this.origin);
             this.moveTo(2 * this.origin.x, 2 * this.origin.y);
         }
     };
