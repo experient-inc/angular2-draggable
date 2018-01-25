@@ -10,7 +10,7 @@ class Position {
 export class AngularDraggableDirective implements OnInit, OnDestroy {
   private allowDrag: boolean = true;
   private moving: boolean = false;
-  private orignal: Position = null;
+  private original: Position = null;
   private oldTrans: Position = new Position(0, 0);
   private tempTrans: Position = new Position(0, 0);
   private oldZIndex: string = '';
@@ -20,6 +20,7 @@ export class AngularDraggableDirective implements OnInit, OnDestroy {
   @Output() started = new EventEmitter<any>();
   @Output() stopped = new EventEmitter<any>();
 
+  @Input() origin: { x: number, y: number };
   @Input() handle: HTMLElement;
   @Input() reset: EventEmitter<any>;
 
@@ -49,8 +50,16 @@ export class AngularDraggableDirective implements OnInit, OnDestroy {
     if (this.reset) {
       this._resetSub = this.reset.subscribe(() => {
         this.oldTrans.x = this.oldTrans.y = 0;
-        this.moveTo(this.orignal.x, this.orignal.y);
+        if(this.origin) {
+          this.moveTo(this.original.x + this.origin.x, this.original.y + this.origin.y);
+        } else {
+          this.moveTo(this.original.x, this.original.y);
+        }
       });
+    }
+    if (this.origin) {
+      Object.assign(this.original, this.origin);
+      this.moveTo(2 * this.origin.x, 2 * this.origin.y);
     }
   }
 
@@ -63,9 +72,9 @@ export class AngularDraggableDirective implements OnInit, OnDestroy {
   }
 
   private moveTo(x: number, y: number) {
-    if (this.orignal) {
-      this.tempTrans.x = x - this.orignal.x;
-      this.tempTrans.y = y - this.orignal.y;
+    if (this.original) {
+      this.tempTrans.x = x - this.original.x;
+      this.tempTrans.y = y - this.original.y;
       let value = `translate(${this.tempTrans.x + this.oldTrans.x}px, ${this.tempTrans.y + this.oldTrans.y}px)`;
       this.renderer.setElementStyle(this.el.nativeElement, 'transform', value);
       this.renderer.setElementStyle(this.el.nativeElement, '-webkit-transform', value);
@@ -130,7 +139,7 @@ export class AngularDraggableDirective implements OnInit, OnDestroy {
       return;
     }
 
-    this.orignal = this.getPosition(event.clientX, event.clientY);
+    this.original = this.getPosition(event.clientX, event.clientY);
     this.pickUp();
   }
 
@@ -166,7 +175,7 @@ export class AngularDraggableDirective implements OnInit, OnDestroy {
       return;
     }
 
-    this.orignal = this.getPosition(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+    this.original = this.getPosition(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
     this.pickUp();
   }
 
