@@ -4,7 +4,7 @@ export declare class AngularDraggableDirective implements OnInit, OnDestroy {
     private renderer;
     private allowDrag;
     private moving;
-    private orignal;
+    private original;
     private oldTrans;
     private tempTrans;
     private oldZIndex;
@@ -12,6 +12,10 @@ export declare class AngularDraggableDirective implements OnInit, OnDestroy {
     private _resetSub;
     started: EventEmitter<any>;
     stopped: EventEmitter<any>;
+    origin: {
+        x: number;
+        y: number;
+    };
     handle: HTMLElement;
     reset: EventEmitter<any>;
     ngDraggable: any;

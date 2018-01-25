@@ -107,7 +107,7 @@ var AngularDraggableDirective = (function () {
         this.renderer = renderer;
         this.allowDrag = true;
         this.moving = false;
-        this.orignal = null;
+        this.original = null;
         this.oldTrans = new Position(0, 0);
         this.tempTrans = new Position(0, 0);
         this.oldZIndex = '';
@@ -138,19 +138,31 @@ var AngularDraggableDirective = (function () {
             this.renderer.setElementClass(element, 'ng-draggable', true);
         }
         if (this.reset) {
-            this._resetSub = this.reset.subscribe(function () { return _this.moveTo(0, 0); });
+            this._resetSub = this.reset.subscribe(function () {
+                _this.oldTrans.x = _this.oldTrans.y = 0;
+                if (_this.origin) {
+                    _this.moveTo(_this.original.x + _this.origin.x, _this.original.y + _this.origin.y);
+                }
+                else {
+                    _this.moveTo(_this.original.x, _this.original.y);
+                }
+            });
+        }
+        if (this.origin) {
+            Object.assign(this.original, this.origin);
+            this.moveTo(2 * this.origin.x, 2 * this.origin.y);
         }
     };
     AngularDraggableDirective.prototype.ngOnDestroy = function () {
-        [this._resetSub].filter(function (x) { return !!x; }).forEach(function (x) { return x.unsubscribe(); });
+        this._resetSub && this._resetSub.unsubscribe();
     };
     AngularDraggableDirective.prototype.getPosition = function (x, y) {
         return new Position(x, y);
     };
     AngularDraggableDirective.prototype.moveTo = function (x, y) {
-        if (this.orignal) {
-            this.tempTrans.x = x - this.orignal.x;
-            this.tempTrans.y = y - this.orignal.y;
+        if (this.original) {
+            this.tempTrans.x = x - this.original.x;
+            this.tempTrans.y = y - this.original.y;
             var value = "translate(" + (this.tempTrans.x + this.oldTrans.x) + "px, " + (this.tempTrans.y + this.oldTrans.y) + "px)";
             this.renderer.setElementStyle(this.el.nativeElement, 'transform', value);
             this.renderer.setElementStyle(this.el.nativeElement, '-webkit-transform', value);
@@ -198,7 +210,7 @@ var AngularDraggableDirective = (function () {
         if (event.button == 2 || (this.handle !== undefined && event.target !== this.handle)) {
             return;
         }
-        this.orignal = this.getPosition(event.clientX, event.clientY);
+        this.original = this.getPosition(event.clientX, event.clientY);
         this.pickUp();
     };
     AngularDraggableDirective.prototype.onMouseUp = function () {
@@ -221,7 +233,7 @@ var AngularDraggableDirective = (function () {
         if (this.handle !== undefined && event.target !== this.handle) {
             return;
         }
-        this.orignal = this.getPosition(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+        this.original = this.getPosition(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
         this.pickUp();
     };
     AngularDraggableDirective.prototype.onTouchMove = function (event) {
@@ -241,6 +253,10 @@ __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
     __metadata("design:type", Object)
 ], AngularDraggableDirective.prototype, "stopped", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], AngularDraggableDirective.prototype, "origin", void 0);
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", HTMLElement)
