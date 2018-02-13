@@ -23,9 +23,9 @@ export declare class AngularDraggableDirective implements OnInit, OnDestroy {
     ngOnInit(): void;
     ngOnDestroy(): void;
     private getPosition(x, y);
-    private moveTo(x, y);
-    private pickUp();
-    private putBack();
+    moveTo(x: number, y: number): void;
+    pickUp(): void;
+    putBack(): void;
     onMouseDown(event: any): void;
     onMouseUp(): void;
     onMouseLeave(): void;

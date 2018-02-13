@@ -68,7 +68,7 @@ export class AngularDraggableDirective implements OnInit, OnDestroy {
     return new Position(x, y);
   }
 
-  private moveTo(x: number, y: number) {
+  moveTo(x: number, y: number) {
     if (this.original) {
       this.tempTrans.x = x - this.original.x;
       this.tempTrans.y = y - this.original.y;
@@ -81,7 +81,7 @@ export class AngularDraggableDirective implements OnInit, OnDestroy {
     }
   }
 
-  private pickUp() {
+  pickUp() {
     // get old z-index and position:
     this.oldZIndex = this.el.nativeElement.style.zIndex ? this.el.nativeElement.style.zIndex : '';
     this.oldPosition = this.el.nativeElement.style.position ? this.el.nativeElement.style.position : '';
@@ -111,7 +111,7 @@ export class AngularDraggableDirective implements OnInit, OnDestroy {
     }
   }
 
-  private putBack() {
+  putBack() {
     if (this.oldZIndex) {
       this.renderer.setElementStyle(this.el.nativeElement, 'z-index', this.oldZIndex);
     } else {
