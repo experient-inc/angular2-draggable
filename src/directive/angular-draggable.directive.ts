@@ -9,10 +9,10 @@ export class Position {
 })
 export class AngularDraggableDirective implements OnInit, OnDestroy {
   original: Position = null;
+  oldTrans: Position = new Position(0, 0);
+  tempTrans: Position = new Position(0, 0);
   private allowDrag: boolean = true;
   private moving: boolean = false;
-  private oldTrans: Position = new Position(0, 0);
-  private tempTrans: Position = new Position(0, 0);
   private oldZIndex: string = '';
   private oldPosition: string = '';
   private _resetSub: any;
