@@ -6,13 +6,14 @@ var Position = (function () {
     }
     return Position;
 }());
+export { Position };
 var AngularDraggableDirective = (function () {
     function AngularDraggableDirective(el, renderer) {
         this.el = el;
         this.renderer = renderer;
+        this.original = null;
         this.allowDrag = true;
         this.moving = false;
-        this.original = null;
         this.oldTrans = new Position(0, 0);
         this.tempTrans = new Position(0, 0);
         this.oldZIndex = '';

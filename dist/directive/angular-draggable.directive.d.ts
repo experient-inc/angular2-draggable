@@ -1,10 +1,15 @@
 import { ElementRef, Renderer, OnInit, EventEmitter, OnDestroy } from '@angular/core';
+export declare class Position {
+    x: number;
+    y: number;
+    constructor(x: number, y: number);
+}
 export declare class AngularDraggableDirective implements OnInit, OnDestroy {
     private el;
     private renderer;
+    original: Position;
     private allowDrag;
     private moving;
-    private original;
     private oldTrans;
     private tempTrans;
     private oldZIndex;

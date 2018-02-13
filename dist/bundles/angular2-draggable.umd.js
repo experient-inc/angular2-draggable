@@ -83,7 +83,8 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_core__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AngularDraggableDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Position; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return AngularDraggableDirective; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -101,13 +102,14 @@ var Position = (function () {
     }
     return Position;
 }());
+
 var AngularDraggableDirective = (function () {
     function AngularDraggableDirective(el, renderer) {
         this.el = el;
         this.renderer = renderer;
+        this.original = null;
         this.allowDrag = true;
         this.moving = false;
-        this.original = null;
         this.oldTrans = new Position(0, 0);
         this.tempTrans = new Position(0, 0);
         this.oldZIndex = '';
@@ -332,7 +334,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_core__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__directive_angular_draggable_directive__ = __webpack_require__(0);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "AngularDraggableDirective", function() { return __WEBPACK_IMPORTED_MODULE_1__directive_angular_draggable_directive__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Position", function() { return __WEBPACK_IMPORTED_MODULE_1__directive_angular_draggable_directive__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "AngularDraggableDirective", function() { return __WEBPACK_IMPORTED_MODULE_1__directive_angular_draggable_directive__["b"]; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AngularDraggableModule", function() { return AngularDraggableModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -351,10 +354,10 @@ var AngularDraggableModule = (function () {
 AngularDraggableModule = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_1__directive_angular_draggable_directive__["a" /* AngularDraggableDirective */]
+            __WEBPACK_IMPORTED_MODULE_1__directive_angular_draggable_directive__["b" /* AngularDraggableDirective */]
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_1__directive_angular_draggable_directive__["a" /* AngularDraggableDirective */]
+            __WEBPACK_IMPORTED_MODULE_1__directive_angular_draggable_directive__["b" /* AngularDraggableDirective */]
         ]
     })
 ], AngularDraggableModule);

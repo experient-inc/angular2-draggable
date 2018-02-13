@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Renderer, Input, Output, OnInit, HostListener, EventEmitter, OnDestroy } from '@angular/core';
 
-class Position {
+export class Position {
   constructor(public x: number, public y: number) { }
 }
 
@@ -8,9 +8,9 @@ class Position {
   selector: '[ngDraggable]'
 })
 export class AngularDraggableDirective implements OnInit, OnDestroy {
+  original: Position = null;
   private allowDrag: boolean = true;
   private moving: boolean = false;
-  private original: Position = null;
   private oldTrans: Position = new Position(0, 0);
   private tempTrans: Position = new Position(0, 0);
   private oldZIndex: string = '';
